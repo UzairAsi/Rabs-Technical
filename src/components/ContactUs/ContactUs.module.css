@@ -1,0 +1,171 @@
+.main {
+    margin-top: 16px;
+}
+
+.secondary-header {
+    background-color: #fff;
+    overflow: hidden;
+    position: relative;
+    background-image: url('https://memorypower.rabsconnect.in/static/media/c1.9524f062f12bc3a1798c.png'),url('https://memorypower.rabsconnect.in/static/media/c2.90ee53a2e874e39b953f.png');
+    background-position: center left 60px,center right 60px;
+    background-repeat: no-repeat,no-repeat;
+    background-size: 400px,400px;
+    padding: 154px 25px;
+}
+
+.main-container {
+    display: flex!important;
+    height: 100%;
+    margin: 0 auto!important;
+    place-items: center!important;
+    padding-left: 24px;
+    padding-right: 24px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    place-items: center;
+}
+
+.contact-content h3, .content-box h4 {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    color: #344767;
+    font-size: 18px;
+    line-height: 30px;
+    margin: 0;
+    letter-spacing: 0em;
+}
+
+.contact-content p, .content-box p {
+    margin: 24px 0px 0px;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+}
+
+.secondary-contact {
+    overflow: hidden;
+    padding: 60px 0;
+    position: relative;
+    background: linear-gradient(180deg,#fff 50%,#e9fdff 0);
+    background-color: #e9fdff;
+}
+
+.card-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: wrap;
+    margin-top: -32px;
+    width: calc(100% + 32px);
+    margin-left: -32px;
+}
+
+.card {
+    flex-basis: 33.3333%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 33.3333%;
+    padding-left: 32px;
+    padding-top: 32px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.content-box {
+    background-color: #fff;
+    border-radius: 10px;
+    border-top: 15px solid #ff9c58;
+    box-shadow: 1px 1px 6px rgba(0,0,0,.1);
+    padding: 3rem;
+}
+
+.content-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-box p {
+    margin-bottom: 24px;
+}
+
+.card-link {
+    margin: 24px 0px 0px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    color: #023e8a;
+}
+
+.card-link span {
+    background-image: linear-gradient(0deg,var(--line) 0,var(--line) 100%);
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-size: var(--background-size,100%) 1px;
+    font-size: 16px;
+    line-height: 20px;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    transition: background-size .2s linear .15s;
+    transition: background-size .2s linear var(--background-delay,.15s);
+}
+
+.card-link svg {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+    stroke: var(--line);
+    stroke-dasharray: 7.95 30;
+    stroke-dashoffset: 46;
+    stroke-dashoffset: var(--stroke-dashoffset,46);
+    display: inline;
+    height: 25px;
+    left: -2px;
+    line-height: 2;
+    position: relative;
+    transition: stroke-dashoffset .15s linear 0s;
+    transition: stroke-dashoffset var(--stroke-duration,.15s) var(--stroke-easing,linear) var(--stroke-delay,0s);
+    vertical-align: top;
+    width: 20px;
+}
+
+@media only screen and (max-width:600px) {
+    .main-container {
+        width: 90%;
+        margin-left: none;
+        box-sizing: border-box;
+        margin-right: none;
+        display: block;
+        padding-left: 16px;
+        padding-right: 16px;
+        justify-content: center;
+    }
+    .secondary-header {
+        background-image: none;
+        padding: 30px 0;
+    }
+    .contact-content {
+        margin: 0;
+        text-align: center;
+    }
+    .contact-content h3 {
+        font-size: 30px;
+    }
+    .contact-content p {
+        font-size: 14px;
+    }
+    .card {
+        flex-basis: 100%;
+        -webkit-box-flex: 0;
+        flex-grow: 0;
+        max-width: 100%;
+    }
+}
