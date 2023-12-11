@@ -4,10 +4,11 @@ import { getDatabase, ref, get } from "firebase/database";
 import firebase from "../../firebaseconfig";
 import classes from "./FirstSection.module.css";
 import styles from "./SecondSection.module.css";
+import { useNavigate } from "react-router-dom";
 
 const SecondSection = () => {
   const [courseData, setCourseData] = useState([]);
-  //   const [data, setData] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +26,9 @@ const SecondSection = () => {
     fetchData();
   }, []);
 
-  console.log(courseData);
+  const handleClick = () => {
+    navigate("/contact-us");
+  };
 
   return (
     <div
@@ -45,7 +48,7 @@ const SecondSection = () => {
                 <div>
                   <h3>{elem.name}</h3>
                   <p>{elem.description}</p>
-                  <button className={styles["card-btn"]}>
+                  <button className={styles["card-btn"]} onClick={handleClick}>
                     Book Free Trial Class
                   </button>
                 </div>
