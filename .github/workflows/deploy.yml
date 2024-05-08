@@ -49,25 +49,12 @@ jobs:
   deploy:
     needs: debug-config
     runs-on: ubuntu-latest
-  
+
+    strategy:
+      matrix:
+        server: ${{fromJson(needs.debug-config.outputs.config)}}
+
     steps:
-      - name: Convert JSON to Array
-        id: convert-to-array
-        run: echo "${{ needs.fetch-api.outputs.config }}" | jq -c '.[]' > converted-array.json
-  
-      - name: Read Converted Array
-        run: echo "::set-output name=converted-array::$(cat converted-array.json)"
-  
-      - name: Deploy with Matrix Strategy
-        uses: your-action-here
-        with:
-          matrix:
-            server: ${{fromJson(needs.convert-to-array.outputs['converted-array'])}}
-            # Add more matrix parameters as needed
-          
-    # Rest of your deployment steps go here
-
-
       - name: Checkout code
         uses: actions/checkout@v2
 
