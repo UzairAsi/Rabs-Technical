@@ -47,7 +47,7 @@ jobs:
           echo "${{ needs.fetch-api.outputs.config }}"
 
   deploy:
-    needs: debug-config
+    needs: fetch-api
     runs-on: ubuntu-latest
 
     strategy:
