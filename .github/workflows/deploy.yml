@@ -1,0 +1,79 @@
+name: Single Dimensional Matrix Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  fetch-api:
+    runs-on: ubuntu-latest
+
+    outputs:
+      config: ${{ steps.read-config.outputs.config }}
+
+    steps:
+      - name: Install httpie
+        run: sudo apt-get update && sudo apt-get install -y httpie
+
+      - name: Fetch configuration data
+        run: |
+          http GET https://demobackend.rabs.support/crm-credentials/get-all-crm-credentials > config.json
+
+      - name: Check if configuration data was fetched
+        run: |
+          if [ -f config.json ]; then
+            echo "Configuration data fetched successfully."
+          else
+            echo "Failed to fetch configuration data."
+            exit 1
+          fi
+
+      - name: Read configuration data
+        id: read-config
+        run: |
+          # Read configuration data from file or API
+          config_data=$(cat config.json)
+          config_data=$(echo "$config_data" | jq -c .)
+          echo "::set-output name=config::$config_data"
+
+  debug-config:
+    needs: fetch-api
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Debug config.json content
+        run: |
+          echo "Content of config.json:"
+          echo "${{ needs.fetch-api.outputs.config }}"
+
+  deploy:
+    needs: debug-config
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        server:  ${{ fromJSON(needs.fetch-api.outputs.config) }}
+        
+    steps:
+      - name: Print Matrix Version
+        run: echo "Version"
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js modules
+        run: npm install
+
+      - name: Deploy to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ matrix.version.crm_cpanel_ftp_server }}
+          username: ${{ matrix.version.crm_cpanel_ftp_username }}
+          password: ${{ matrix.version.crm_cpanel_ftp_password }}
+          protocol: ${{ secrets.GIT_CPANEL_PROTOCOL }}
+          local-dir: ./
+          server-dir: ${{ matrix.version.crm_app_server_directory }}
+
+      - name: Restart Server
+        run: node restart-app.js
