@@ -37,7 +37,7 @@ jobs:
           config_data="${config_data//'%'/'%25'}"
           config_data="${config_data//$'\n'/'%0A'}"
           config_data="${config_data//$'\r'/'%0D'}"
-          echo "::set-output name=config::$(echo -n "$config_data")"
+          echo "::set-output name=config::$(echo -n "$config_data" | jq -c '.[]')"
 
   debug-config:
     needs: fetch-api
@@ -55,7 +55,10 @@ jobs:
 
     strategy:
       matrix:
-        server:  ${{ fromJSON(needs.fetch-api.outputs.config) }}
+        server:
+          - ${{fromJson(needs.fetch-api.outputs.config)[0]}}
+          - ${{fromJson(needs.fetch-api.outputs.config)[1]}}
+          # Add more entries for each object in your JSON array as needed
         
     steps:
       - name: Print Matrix Version
