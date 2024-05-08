@@ -33,7 +33,7 @@ jobs:
         id: read-config
         run: |
           # Read configuration data from file or API
-          config_data=$(cat config.json | jq -c '.')
+          config_data=$(cat config.json)
           echo "::set-output name=config::$config_data"
 
   debug-config:
@@ -52,7 +52,7 @@ jobs:
 
     strategy:
       matrix:
-        server: ${{needs.debug-config.outputs.config}}
+        server: ${{fromJson(needs.fetch-api.outputs.config)}}
 
     steps:
       - name: Checkout code
