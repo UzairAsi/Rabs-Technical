@@ -34,7 +34,6 @@ jobs:
         run: |
           # Read configuration data from file or API
           config_data=$(cat config.json)
-          config_data=$(echo "$config_data" | jq -c .)
           echo "::set-output name=config::$config_data"
 
   debug-config:
@@ -68,12 +67,12 @@ jobs:
       - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ matrix.version.crm_cpanel_ftp_server }}
-          username: ${{ matrix.version.crm_cpanel_ftp_username }}
-          password: ${{ matrix.version.crm_cpanel_ftp_password }}
+          server: ${{ matrix.server.crm_cpanel_ftp_server }}
+          username: ${{ matrix.server.crm_cpanel_ftp_username }}
+          password: ${{ matrix.server.crm_cpanel_ftp_password }}
           protocol: ${{ secrets.GIT_CPANEL_PROTOCOL }}
           local-dir: ./
-          server-dir: ${{ matrix.version.crm_app_server_directory }}
+          server-dir: ${{ matrix.server.crm_app_server_directory }}
 
       - name: Restart Server
         run: node restart-app.js
