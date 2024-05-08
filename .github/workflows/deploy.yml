@@ -52,7 +52,7 @@ jobs:
 
     strategy:
       matrix:
-        server: ${{ fromJson(needs.fetch-api.outputs.config, 'jq -c .') }}
+        server: ${{fromJson(needs.fetch-api.outputs.config)}}
 
     steps:
       - name: Checkout code
