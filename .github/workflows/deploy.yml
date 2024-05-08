@@ -52,8 +52,7 @@ jobs:
 
     strategy:
       matrix:
-        server:
-          - ${{fromJson(needs.debug-config.outputs.config)}}
+        server: ${{needs.debug-config.outputs.config}}
 
     steps:
       - name: Checkout code
