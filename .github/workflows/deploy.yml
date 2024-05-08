@@ -33,11 +33,8 @@ jobs:
         id: read-config
         run: |
           # Read configuration data from file or API
-          config_data=$(cat config.json)
-          config_data="${config_data//'%'/'%25'}"
-          config_data="${config_data//$'\n'/'%0A'}"
-          config_data="${config_data//$'\r'/'%0D'}"
-          echo "::set-output name=config::$(echo -n "$config_data" | jq -c '.[]')"
+          config_data=$(cat config.json | jq -c '.[]')
+          echo "::set-output name=config::$config_data"
 
   debug-config:
     needs: fetch-api
