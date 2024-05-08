@@ -34,7 +34,10 @@ jobs:
         run: |
           # Read configuration data from file or API
           config_data=$(cat config.json)
-          echo "::set-output name=config::$config_data"
+          config_data="${config_data//'%'/'%25'}"
+          config_data="${config_data//$'\n'/'%0A'}"
+          config_data="${config_data//$'\r'/'%0D'}"
+          echo "::set-output name=config::$(echo -n "$config_data")"
 
   debug-config:
     needs: fetch-api
